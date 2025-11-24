@@ -71,6 +71,9 @@ export async function tampilkanDaftar() {
     const tombolHapus = document.createElement('button')
     tombolHapus.textContent = 'Hapus'
     tombolHapus.className = 'button delete'
+    tombolHapus.onclick = async () => {
+      await hapusSiswa(id)
+    }
     
     // tambahkan elemen ke dalam kolom aksi
     kolomAksi.appendChild(tombolEdit)
@@ -100,4 +103,13 @@ export async function tambahDataSiswa() {
   });
 
   window.location.href = "daftar.html";
+}
+
+// fungsi untuk menghapus data siswa
+export async function hapusSiswa(id) {
+  // menghapus dokumen siswa berdasarkan id
+  await deleteDoc(doc(db,'siswa',id))
+  
+  // refresh daftar siswa
+  await tampilkanDaftar()
 }
